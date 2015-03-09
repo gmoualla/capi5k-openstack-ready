@@ -35,6 +35,25 @@ Don't forget the `source ~/.bash_profile` command if you don't want to logout/lo
     bundle install --path ~/.gem
     #xpm install
 
+### xpm and restfully configurations and id_rsa.pub
+
+To be able to do your first `cap -T` you will need to add the xpm configuration. To do so, move the folder `.xpm` to your home:
+
+    mv .xpm ~/
+
+It contains a _connection.rb_ file. Don't forget to **edit this file** because you won't be able to use my account! ;)
+
+Then you will need to create a file for the restfully configuration:
+
+    mkdir ~/.restfully
+    echo "base_uri: https://api.grid5000.fr/3.0/" > ~/.restfully/api.grid5000.fr.yml
+
+You will also need to specify your _id_rsa.pub_. Check if this file is present in ~/.ssh/. 
+
+Now you should be able to execute the following command which list the available commands: 
+
+    cap -T
+
 ## Deployement
 
 Commands to execute the deployement: 
