@@ -1,0 +1,29 @@
+{
+  "name": "capi5k-puppetcluster",
+  "version": "0.0.0",
+  "homepage": "https://github.com/capi5k/capi5k-puppetcluster",
+  "authors": [
+    "msimonin <matthieu.simonin@inria.fr>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {},
+  "exports": [
+    "roles.rb"
+  ],
+  "_cacheHeaders": {
+    "ETag": "\"8a6ac6dae0e4fc3eeeaa97e445da67ddfcbacd4a\"",
+    "Content-Type": "application/x-gzip",
+    "Content-Disposition": "attachment; filename=capi5k-capi5k-puppetcluster-8a6ac6d.tar.gz"
+  },
+  "_release": "e-tag:8a6ac6dae",
+  "_source": "https://github.com/capi5k/capi5k-puppetcluster/tarball/develop",
+  "_target": "*",
+  "_originalSource": "https://github.com/capi5k/capi5k-puppetcluster/tarball/develop"
+}
