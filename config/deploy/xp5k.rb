@@ -4,10 +4,10 @@ require 'xp5k'
 require 'erb'
 
 # G5K global parameters
-set :site, ENV['site'] || "toulouse"
-set :walltime, ENV['walltime'] || "7:00:00"
+set :site, ENV['site'] || "grenoble"
+set :walltime, ENV['walltime'] || "8:00:00"
 set :subnet, ENV['subnet'] || "slash_18"
-set :vlan, ENV['vlan'] || "17"
+set :vlan, ENV['vlan'] || "11"
 set :nodes, ENV['nodes'] || 5
 
 
