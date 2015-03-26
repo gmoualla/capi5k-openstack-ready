@@ -354,7 +354,14 @@ namespace :openstack do
         run "#{proxy} pip install sahara"
       end
       task :configure, :roles => [:controller] do
-        
+        run "mkdir /etc/sahara"
+        upload "#{openstack_path}/config/sahara.conf", "/etc/sahara/sahara.conf", :via => :scp
+        run "mysql create database sahara"
+        run "sahara-db-manage --config-file /etc/sahara/sahara.conf upgrade head"
+        run "source openrc"
+        run "keystone service-create --name sahara --type data_processing --description "Data processing service""
+        controller = find_servers :roles => [:controller]
+        run "keystone endpoint-create --service-id $(keystone service-list | awk '/ sahara / {print $2}') --publicurl http://#{controller.first.host}:8386/v1.1/%\(tenant_id\)s --internalurl http://#{controller.first.host}:8386/v1.1/%\(tenant_id\)s --adminurl http://#{controller.first.host}:8386/v1.1/%\(tenant_id\)s --region openstack "
       end
   end
 end
