@@ -353,5 +353,8 @@ namespace :openstack do
         run "apt-get install -y python-pip"
         run "#{proxy} pip install sahara"
       end
+      task :configure, :roles => [:controller] do
+        
+      end
   end
 end
