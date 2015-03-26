@@ -327,7 +327,6 @@ namespace :openstack do
         run "cat demo.ec2"
       end
 
-
     end
 
     task :ec2_boot, :roles => [:controller] do
@@ -344,5 +343,15 @@ namespace :openstack do
       puts "nova boot --flavor 3 --security_groups vm_jdoe_sec_group --image ubuntu-image --nic net-id=a665bfd4-53da-41a8-9bd6-bab03c09b890 --key_name jdoe_key  ubuntu-vm"
     end
 
+  end
+  namespace :sahara do
+
+      desc 'Deploy Sahara'
+      task :install, :roles => [:controller] do
+        set :user, "root"
+        run "apt-get install -y pip"
+        run "apt-get install -y python-pip"
+        run "#{proxy} pip install sahara"
+      end
   end
 end
