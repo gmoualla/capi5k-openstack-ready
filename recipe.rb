@@ -369,7 +369,7 @@ namespace :openstack do
       run "keystone service-create --name sahara --type data_processing --description 'Data Processing Service'"
       controller = (find_servers :roles => [:controller]).first.host
       puts "#{controller}"
-      run "keystone endpoint-create --service sahara --publicurl http://#{controller}:8386/v1.1/ --internalurl http://#{controller}:8386/v1.1/  --adminurl http://#{controller}$
+      run "keystone endpoint-create --service sahara --publicurl http://#{controller}:8386/v1.1/ --internalurl http://#{controller}:8386/v1.1/  --adminurl http://#{controller}:8386/v1.1/  --region openstack" 
 
      end
   end
