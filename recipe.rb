@@ -345,14 +345,17 @@ namespace :openstack do
 
   end
   namespace :sahara do
-    desc 'Deploy Sahara'
+
+      desc 'Deploy Sahara'
       task :install, :roles => [:controller] do
       set :user, "root"
       run "apt-get install -y python-pip"
       run "pip install MySQL-python"
       run "apt-get install -y python-pip libmysqlclient-dev python-dev"
       run "#{proxy} pip install sahara"
+      run "#{proxy} pip install sahara-dashboard"
      end
+      desc 'Configure Sahara'
       task :configure, :roles => [:controller] do
       set :default_environment, rc('admin')
       set :default_environment, {
@@ -360,7 +363,7 @@ namespace :openstack do
      "OS_PASSWORD" => "fyby-tet",
      "OS_TENANT_NAME" => "admin",
      "OS_AUTH_URL" => "http://localhost:5000/v2.0/"
-      }
+   }
       set :user, "root"
       run "mkdir -p  /etc/sahara"
       upload "#{openstack_path}/config/sahara.conf", "/etc/sahara/sahara.conf", :via => :scp
@@ -368,11 +371,12 @@ namespace :openstack do
       run "sahara-db-manage --config-file /etc/sahara/sahara.conf upgrade head"
       run "keystone service-create --name sahara --type data_processing --description 'Data Processing Service'"
       controller = (find_servers :roles => [:controller]).first.host
-      puts "#{controller}"
-      run "keystone endpoint-create --service sahara --publicurl http://#{controller}:8386/v1.1/ --internalurl http://#{controller}:8386/v1.1/  --adminurl http://#{controller}:8386/v1.1/  --region openstack" 
-
+      puts "#{controller}" 
+      run "echo 'keystone endpoint-create --service sahara --publicurl http://#{controller}:8386/v1.1/%\\(tenant_id\\)s --internalurl http://#{controller}:8386/v1.1/%\\(tenant_id\\)s  --adminurl http://#{controller}:8386/v1.1/%\\(tenant_id\\)s  --region openstack' > command"
+      run "keystone endpoint-create --service sahara --publicurl http://#{controller}:8386/v1.1/%\\(tenant_id\\)s --internalurl http://#{controller}:8386/v1.1/%\\(tenant_id\\)s  --adminurl http://#{controller}:8386/v1.1/%\\(tenant_id\\)s  --region openstack"
+      upload "#{openstack_path}/config/settings.py", "/usr/share/openstack-dashboard/openstack_dashboard/settings.py", :via => :scp
+      run "service apache2 restart"
+      run "nohup sahara-all --config-file /etc/sahara/sahara.conf 2> /tmp/sahara.err > /tmp/sahara.out &"
      end
   end
 end
-
-      
