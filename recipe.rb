@@ -378,5 +378,15 @@ namespace :openstack do
       run "service apache2 restart"
       run "nohup sahara-all --config-file /etc/sahara/sahara.conf 2> /tmp/sahara.err > /tmp/sahara.out &"
      end
+     task :saharaimages, :roles => [:controller] do
+      set :default_environment, rc('test')
+      set :user, "root"
+      run "#{proxy} wget http://public.rennes.grid5000.fr/~gmoualla/images/sahara-icehouse-vanilla-1.2.1-ubuntu-13.10.qcow2"
+      run "glance add name='ubuntu-hadoop-1.2.1' is_public=true container_format=ovf disk_format=qcow2 < sahara-icehouse-vanilla-1.2.1-ubuntu-13.10.qcow2 "
+      run "nova image-list"
+      end
+  end
+end
+
   end
 end
