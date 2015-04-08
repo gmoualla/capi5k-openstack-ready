@@ -73,7 +73,7 @@ HORIZON_CONFIG = {
 # When enabled, a file form field will appear on the create image form.
 # See documentation for deployment considerations.
 HORIZON_IMAGES_ALLOW_UPLOAD = True
-
+AUTO_ASSIGNMENT_ENABLED = False
 # The OPENSTACK_IMAGE_BACKEND settings can be used to customize features
 # in the OpenStack Dashboard related to the Image service, such as the list
 # of supported image formats.
