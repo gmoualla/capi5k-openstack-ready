@@ -1,4 +1,4 @@
-set :g5k_user, "dguyon"
+set :g5k_user, "gmoualla"
 # gateway
 #set :gateway, "#{g5k_user}@access.grid5000.fr"
 # # This key will used to access the gateway and nodes
